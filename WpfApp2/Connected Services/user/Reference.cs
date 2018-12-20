@@ -8,17 +8,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WpfApp2.UserService {
+namespace WpfApp2.user {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://localhost:8080/user", ConfigurationName="UserService.UserPort")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://localhost:8080/user", ConfigurationName="user.UserPort")]
     public interface UserPort {
         
         // CODEGEN: Контракт генерации сообщений с операцией GetUserDetails не является ни RPC, ни упакованным документом.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        WpfApp2.UserService.GetUserDetailsResponse1 GetUserDetails(WpfApp2.UserService.GetUserDetailsRequest1 request);
+        WpfApp2.user.GetUserDetailsResponse1 GetUserDetails(WpfApp2.user.GetUserDetailsRequest1 request);
     }
     
     /// <remarks/>
@@ -29,10 +29,24 @@ namespace WpfApp2.UserService {
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/user")]
     public partial class GetUserDetailsRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
+        private string sessionField;
+        
         private int idField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string session {
+            get {
+                return this.sessionField;
+            }
+            set {
+                this.sessionField = value;
+                this.RaisePropertyChanged("session");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public int id {
             get {
                 return this.idField;
@@ -152,12 +166,12 @@ namespace WpfApp2.UserService {
     public partial class GetUserDetailsRequest1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/user", Order=0)]
-        public WpfApp2.UserService.GetUserDetailsRequest GetUserDetailsRequest;
+        public WpfApp2.user.GetUserDetailsRequest GetUserDetailsRequest;
         
         public GetUserDetailsRequest1() {
         }
         
-        public GetUserDetailsRequest1(WpfApp2.UserService.GetUserDetailsRequest GetUserDetailsRequest) {
+        public GetUserDetailsRequest1(WpfApp2.user.GetUserDetailsRequest GetUserDetailsRequest) {
             this.GetUserDetailsRequest = GetUserDetailsRequest;
         }
     }
@@ -169,23 +183,23 @@ namespace WpfApp2.UserService {
     public partial class GetUserDetailsResponse1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/user", Order=0)]
-        public WpfApp2.UserService.GetUserDetailsResponse GetUserDetailsResponse;
+        public WpfApp2.user.GetUserDetailsResponse GetUserDetailsResponse;
         
         public GetUserDetailsResponse1() {
         }
         
-        public GetUserDetailsResponse1(WpfApp2.UserService.GetUserDetailsResponse GetUserDetailsResponse) {
+        public GetUserDetailsResponse1(WpfApp2.user.GetUserDetailsResponse GetUserDetailsResponse) {
             this.GetUserDetailsResponse = GetUserDetailsResponse;
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface UserPortChannel : WpfApp2.UserService.UserPort, System.ServiceModel.IClientChannel {
+    public interface UserPortChannel : WpfApp2.user.UserPort, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class UserPortClient : System.ServiceModel.ClientBase<WpfApp2.UserService.UserPort>, WpfApp2.UserService.UserPort {
+    public partial class UserPortClient : System.ServiceModel.ClientBase<WpfApp2.user.UserPort>, WpfApp2.user.UserPort {
         
         public UserPortClient() {
         }
@@ -207,14 +221,14 @@ namespace WpfApp2.UserService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        WpfApp2.UserService.GetUserDetailsResponse1 WpfApp2.UserService.UserPort.GetUserDetails(WpfApp2.UserService.GetUserDetailsRequest1 request) {
+        WpfApp2.user.GetUserDetailsResponse1 WpfApp2.user.UserPort.GetUserDetails(WpfApp2.user.GetUserDetailsRequest1 request) {
             return base.Channel.GetUserDetails(request);
         }
         
-        public WpfApp2.UserService.GetUserDetailsResponse GetUserDetails(WpfApp2.UserService.GetUserDetailsRequest GetUserDetailsRequest) {
-            WpfApp2.UserService.GetUserDetailsRequest1 inValue = new WpfApp2.UserService.GetUserDetailsRequest1();
+        public WpfApp2.user.GetUserDetailsResponse GetUserDetails(WpfApp2.user.GetUserDetailsRequest GetUserDetailsRequest) {
+            WpfApp2.user.GetUserDetailsRequest1 inValue = new WpfApp2.user.GetUserDetailsRequest1();
             inValue.GetUserDetailsRequest = GetUserDetailsRequest;
-            WpfApp2.UserService.GetUserDetailsResponse1 retVal = ((WpfApp2.UserService.UserPort)(this)).GetUserDetails(inValue);
+            WpfApp2.user.GetUserDetailsResponse1 retVal = ((WpfApp2.user.UserPort)(this)).GetUserDetails(inValue);
             return retVal.GetUserDetailsResponse;
         }
     }

@@ -6,7 +6,6 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Threading;
-using WpfApp2.UserService;
 
 namespace WpfApp2
 {

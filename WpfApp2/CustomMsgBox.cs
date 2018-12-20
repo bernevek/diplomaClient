@@ -5,7 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using WpfApp2.UserService;
+using WpfApp2.user;
+using WpfApp2.login;
+using System.Diagnostics;
+
 
 namespace WpfApp2
 {
@@ -31,13 +34,34 @@ namespace WpfApp2
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            UserPortClient client = new UserPortClient("UserPortSoap11");
-            GetUserDetailsRequest getUserDetailsRequest = new GetUserDetailsRequest();
-            getUserDetailsRequest.id = 5;
-            GetUserDetailsResponse response = client.GetUserDetails(getUserDetailsRequest);
-            this.textBox1.Text = response.UserDetails.lastName;
-            Console.WriteLine(response.UserDetails.lastName);
+            LoginPortClient client = new LoginPortClient("LoginPortSoap11");
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.login = this.textBox1.Text;
+            loginRequest.password = this.textBox2.Text;
+
+            try
+            {
+                LoginResponse response = client.Login(loginRequest);
+                Console.WriteLine(response);
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+            
             close = true;
+//            try
+//            {
+//                Process[] proc = Process.GetProcessesByName("winword");
+//                foreach (Process element in proc)
+//                {
+//                    Console.WriteLine(proc.Length);
+//                    element.Kill();
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//            }
             msgBox.Close();
         }
         private void CustomMsgBox_Closing(object sender, FormClosingEventArgs e)
