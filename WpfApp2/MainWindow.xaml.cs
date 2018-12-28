@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
@@ -102,6 +102,24 @@ namespace WpfApp2
         public MainWindow()
         {
             InitializeComponent();
+
+            System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
+            ni.Icon = new System.Drawing.Icon("Lock.ico");
+            ni.Visible = true;
+            ni.DoubleClick +=
+                delegate (object sender, EventArgs args)
+                {
+                    this.Show();
+                    this.WindowState = WindowState.Normal;
+                };
+        }
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            if (WindowState == System.Windows.WindowState.Minimized)
+                this.Hide();
+
+            base.OnStateChanged(e);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -113,8 +131,8 @@ namespace WpfApp2
             //Console.WriteLine(response.UserDetails.id);
             //Console.WriteLine(response.UserDetails.firstName);
             //Console.WriteLine(response.UserDetails.lastName);
-            Thread myThread = new Thread(new ThreadStart(newDesktop));
-            myThread.Start(); // запускаем поток
+            //            Thread myThread = new Thread(new ThreadStart(newDesktop));
+            //            myThread.Start(); // запускаем поток
         }
 
         private void newDesktop()
