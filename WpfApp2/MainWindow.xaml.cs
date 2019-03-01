@@ -6,12 +6,18 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Threading;
+using WpfApp2.request;
 
 namespace WpfApp2
 {
     public partial class MainWindow : Window
     {
         // Fields
+        private static String _session;
+        private Requests requests = Requests.getRequests();
+
+        public static string Session { get => _session; set => _session = value; }
+
         private const uint GENERIC_ALL = 0x1ff;
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -131,8 +137,9 @@ namespace WpfApp2
             //Console.WriteLine(response.UserDetails.id);
             //Console.WriteLine(response.UserDetails.firstName);
             //Console.WriteLine(response.UserDetails.lastName);
-            //            Thread myThread = new Thread(new ThreadStart(newDesktop));
-            //            myThread.Start(); // запускаем поток
+
+            Thread myThread = new Thread(new ThreadStart(newDesktop));
+            myThread.Start(); // запускаем поток
         }
 
         private void newDesktop()
@@ -156,6 +163,7 @@ namespace WpfApp2
 
             //MessageBox.Show("bla bla");
             CustomMsgBox.Show(hDesktop, hObject, "bla bla", "MSG", "Close", "Send");
+            Console.WriteLine(_session);
 
 
             //            EnumWindows(delegate (IntPtr hWnd, IntPtr lParam) {
@@ -170,12 +178,10 @@ namespace WpfApp2
             {
                 throw new Win32Exception(num);
             }
- //           if (!SetThreadDesktop(hDesktop) && ((num = _geterr()) != 0))
- //           {
- //               throw new Win32Exception(num);
- //           }
- //           if (!CloseDesktop(hObject) && ((num = _geterr()) != 0))
- //               throw new Win32Exception(num);
+            else
+            {
+                requests.getAndApplyPolicy(MainWindow.Session);
+            }
         }
 
         private int _geterr()

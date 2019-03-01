@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e9f9c860-4d45-440f-9ca3-fc90f89301b6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="764e7ff5-7207-4b90-9a76-0db15eb13ed6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -18,10 +18,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://ec2-3-121-186-71.eu-central-1.compute.amazonaws.com:8080/ws/login.wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://ec2-3-121-186-71.eu-central-1.compute.amazonaws.com:8080/ws/isecurity.wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="login.wsdl" MetadataType="Wsdl" ID="2a7c1fa9-a61a-4afe-b3ee-a2625776adad" SourceId="1" SourceUrl="http://ec2-3-121-186-71.eu-central-1.compute.amazonaws.com:8080/ws/login.wsdl" />
+    <MetadataFile FileName="isecurity.wsdl" MetadataType="Wsdl" ID="1c676e37-a6d3-48f1-a176-f92dde54c77b" SourceId="1" SourceUrl="http://ec2-3-121-186-71.eu-central-1.compute.amazonaws.com:8080/ws/isecurity.wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

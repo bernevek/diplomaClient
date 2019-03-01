@@ -8,9 +8,24 @@ namespace WpfApp2.service
 {
     class ApplicationService
     {
-        private String[] bannedApplications { get; set; }
-        private String[] allApplications { get; set; }
-        private String[] browsers { get; set; }
+
+        private String[] bannedApplications;
+        private String[] allApplications;
+        private String[] browsers;
+        private static ApplicationService applicationService = null;
+
+        public string[] BannedApplications { get => bannedApplications; set => bannedApplications = value; }
+        public string[] AllApplications { get => allApplications; set => allApplications = value; }
+        public string[] Browsers { get => browsers; set => browsers = value; }
+
+        public static ApplicationService getApplicationService()
+        {
+            if (applicationService == null)
+            {
+                applicationService = new ApplicationService();
+            }
+            return applicationService;
+        }
 
         public Boolean closeApplications()
         {

@@ -5,8 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using WpfApp2.user;
-using WpfApp2.login;
+using WpfApp2.isecurity;
+using WpfApp2.request;
 using System.Diagnostics;
 
 
@@ -14,6 +14,7 @@ namespace WpfApp2
 {
     public partial class CustomMsgBox : Form
     {
+        private Requests requests = Requests.getRequests();
         public CustomMsgBox()
         {
             InitializeComponent();
@@ -34,21 +35,22 @@ namespace WpfApp2
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            LoginPortClient client = new LoginPortClient("LoginPortSoap11");
+            SecurityClient client = new SecurityClient("ISecuritySoap11");
+            
             LoginRequest loginRequest = new LoginRequest();
+            loginRequest.computerId = 1;
             loginRequest.login = this.textBox1.Text;
             loginRequest.password = this.textBox2.Text;
 
             try
             {
                 LoginResponse response = client.Login(loginRequest);
-                Console.WriteLine(response);
+                MainWindow.Session = response.session;
             }
             catch (Exception ex)
             {
                 return;
             }
-            
             close = true;
 //            try
 //            {
