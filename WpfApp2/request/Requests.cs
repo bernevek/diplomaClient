@@ -30,7 +30,9 @@ namespace WpfApp2.request
                 GetPolicyResponse response = client.GetPolicy(request);
                 closeApps();
                 applicationService.BannedApplications = response.policy.bannedApps;
+                applicationService.BannedSites = response.policy.bannedSites;
                 applicationService.banApplications();
+                applicationService.banSites();
             }
             catch (Exception ex)
             {
