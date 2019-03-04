@@ -25,6 +25,11 @@ namespace WpfApp2.isecurity {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         WpfApp2.isecurity.GetUserDetailsResponse1 GetUserDetails(WpfApp2.isecurity.GetUserDetailsRequest1 request);
         
+        // CODEGEN: Контракт генерации сообщений с операцией GetApps не является ни RPC, ни упакованным документом.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        WpfApp2.isecurity.GetAppsResponse GetApps(WpfApp2.isecurity.GetAppsRequest1 request);
+        
         // CODEGEN: Контракт генерации сообщений с операцией Login не является ни RPC, ни упакованным документом.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -432,6 +437,73 @@ namespace WpfApp2.isecurity {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
+    public partial class GetAppsRequest : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string sessionField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string session {
+            get {
+                return this.sessionField;
+            }
+            set {
+                this.sessionField = value;
+                this.RaisePropertyChanged("session");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAppsRequest1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/isecurity", Order=0)]
+        public WpfApp2.isecurity.GetAppsRequest GetAppsRequest;
+        
+        public GetAppsRequest1() {
+        }
+        
+        public GetAppsRequest1(WpfApp2.isecurity.GetAppsRequest GetAppsRequest) {
+            this.GetAppsRequest = GetAppsRequest;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAppsResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAppsResponse", Namespace="http://localhost:8080/isecurity", Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("apps", IsNullable=false)]
+        public string[] GetAppsResponse1;
+        
+        public GetAppsResponse() {
+        }
+        
+        public GetAppsResponse(string[] GetAppsResponse1) {
+            this.GetAppsResponse1 = GetAppsResponse1;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3062.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
     public partial class LoginRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string loginField;
@@ -713,6 +785,18 @@ namespace WpfApp2.isecurity {
             inValue.GetUserDetailsRequest = GetUserDetailsRequest;
             WpfApp2.isecurity.GetUserDetailsResponse1 retVal = ((WpfApp2.isecurity.ISecurity)(this)).GetUserDetails(inValue);
             return retVal.GetUserDetailsResponse;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WpfApp2.isecurity.GetAppsResponse WpfApp2.isecurity.ISecurity.GetApps(WpfApp2.isecurity.GetAppsRequest1 request) {
+            return base.Channel.GetApps(request);
+        }
+        
+        public string[] GetApps(WpfApp2.isecurity.GetAppsRequest GetAppsRequest) {
+            WpfApp2.isecurity.GetAppsRequest1 inValue = new WpfApp2.isecurity.GetAppsRequest1();
+            inValue.GetAppsRequest = GetAppsRequest;
+            WpfApp2.isecurity.GetAppsResponse retVal = ((WpfApp2.isecurity.ISecurity)(this)).GetApps(inValue);
+            return retVal.GetAppsResponse1;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

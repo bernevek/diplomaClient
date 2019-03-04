@@ -83,6 +83,20 @@
           <xs:element name="lastName" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
+      <xs:element name="GetAppsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="session" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAppsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="apps" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
     </xs:schema>
   </wsdl:types>
   <wsdl:message name="GetPolicyResponse">
@@ -90,6 +104,9 @@
   </wsdl:message>
   <wsdl:message name="GetUserDetailsResponse">
     <wsdl:part name="GetUserDetailsResponse" element="tns:GetUserDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAppsResponse">
+    <wsdl:part name="GetAppsResponse" element="tns:GetAppsResponse" />
   </wsdl:message>
   <wsdl:message name="LoginRequest">
     <wsdl:part name="LoginRequest" element="tns:LoginRequest" />
@@ -106,6 +123,9 @@
   <wsdl:message name="GetPolicyRequest">
     <wsdl:part name="GetPolicyRequest" element="tns:GetPolicyRequest" />
   </wsdl:message>
+  <wsdl:message name="GetAppsRequest">
+    <wsdl:part name="GetAppsRequest" element="tns:GetAppsRequest" />
+  </wsdl:message>
   <wsdl:message name="LoginResponse">
     <wsdl:part name="LoginResponse" element="tns:LoginResponse" />
   </wsdl:message>
@@ -117,6 +137,10 @@
     <wsdl:operation name="GetUserDetails">
       <wsdl:input name="GetUserDetailsRequest" message="tns:GetUserDetailsRequest" />
       <wsdl:output name="GetUserDetailsResponse" message="tns:GetUserDetailsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApps">
+      <wsdl:input name="GetAppsRequest" message="tns:GetAppsRequest" />
+      <wsdl:output name="GetAppsResponse" message="tns:GetAppsResponse" />
     </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:input name="LoginRequest" message="tns:LoginRequest" />
@@ -144,6 +168,15 @@
         <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output name="GetUserDetailsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApps">
+      <soap:operation soapAction="" />
+      <wsdl:input name="GetAppsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAppsResponse">
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

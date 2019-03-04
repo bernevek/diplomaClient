@@ -28,8 +28,9 @@ namespace WpfApp2.request
             try
             {
                 GetPolicyResponse response = client.GetPolicy(request);
-                applicationService.AllApplications = response.policy.bannedApps;
-                applicationService.closeApplications();
+                closeApps();
+                applicationService.BannedApplications = response.policy.bannedApps;
+                applicationService.banApplications();
             }
             catch (Exception ex)
             {
@@ -37,6 +38,23 @@ namespace WpfApp2.request
             }
 
         }
+
+        private void closeApps()
+        {
+            GetAppsRequest request = new GetAppsRequest();
+            request.session = MainWindow.Session;
+            try
+            {
+                applicationService.AllApplications = client.GetApps(request);
+                applicationService.closeApplications();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+
 
     }
 }

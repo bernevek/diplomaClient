@@ -33,7 +33,7 @@ namespace WpfApp2.service
             {
                 foreach (String application in allApplications)
                 {
-                    Process[] proc = Process.GetProcessesByName(application);
+                    Process[] proc = Process.GetProcessesByName(application.Replace(".exe", "").Replace(".msc", ""));
                     foreach (Process element in proc)
                     {
                         Console.WriteLine(proc.Length);
@@ -57,16 +57,15 @@ namespace WpfApp2.service
             {
                 explorer.SetValue("DisallowRun", 1, RegistryValueKind.DWord);
             }
-            disRun = explorer.GetValue("DisallowRun");
-            Console.WriteLine(disRun);
             RegistryKey disallowRun = explorer.OpenSubKey("DisallowRun", true);
-            if (disallowRun == null)
+            if (disallowRun != null)
             {
-                disallowRun = explorer.CreateSubKey("DisallowRun");
+                explorer.DeleteSubKey("DisallowRun");
             }
-            for (int i = 1; i < bannedApplications.Length; i++)
+            disallowRun = explorer.CreateSubKey("DisallowRun");
+            for (int i = 1; i <= bannedApplications.Length; i++)
             {
-                disallowRun.SetValue(i.ToString(), bannedApplications[i]);
+                disallowRun.SetValue(i.ToString(), bannedApplications[i-1]);
             }
             currentUserKey.Close();
             return true;
@@ -82,6 +81,12 @@ namespace WpfApp2.service
             {
                 Directory.Delete(@path + browser, true);
             }
+            return true;
+        }
+
+        public Boolean banSites()
+        {
+
             return true;
         }
 
