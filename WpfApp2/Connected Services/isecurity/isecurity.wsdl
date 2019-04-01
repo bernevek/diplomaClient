@@ -17,9 +17,26 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+      <xs:element name="SendComputerDetailsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ComputerDetails" type="tns:ComputerDetails" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SendComputerDetailsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ComputerDetails" type="tns:ComputerDetails" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
       <xs:complexType name="ComputerDetails">
         <xs:sequence>
-          <xs:element name="id" type="xs:int" />
+          <xs:element name="serverId" type="xs:long" />
+          <xs:element name="localId" type="xs:long" />
+          <xs:element name="computerName" type="xs:string" />
+          <xs:element name="localUserName" type="xs:string" />
           <xs:element name="ip" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
@@ -39,6 +56,20 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+      <xs:element name="LogoutRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="session" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LogoutResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="status" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="GetPolicyRequest">
         <xs:complexType>
           <xs:sequence>
@@ -55,11 +86,9 @@
       </xs:element>
       <xs:complexType name="policy">
         <xs:sequence>
-          <xs:element name="id" type="xs:long" />
-          <xs:element name="name" type="xs:string" />
           <xs:element minOccurs="0" maxOccurs="unbounded" name="bannedApps" type="xs:string" />
           <xs:element minOccurs="0" maxOccurs="unbounded" name="bannedSites" type="xs:string" />
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="loginMethods" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="bannedServices" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:element name="GetUserDetailsRequest">
@@ -97,16 +126,45 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+      <xs:element name="GetServicesRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="session" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetServicesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="services" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
     </xs:schema>
   </wsdl:types>
+  <wsdl:message name="SendComputerDetailsRequest">
+    <wsdl:part name="SendComputerDetailsRequest" element="tns:SendComputerDetailsRequest" />
+  </wsdl:message>
+  <wsdl:message name="LogoutRequest">
+    <wsdl:part name="LogoutRequest" element="tns:LogoutRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetAppsResponse">
+    <wsdl:part name="GetAppsResponse" element="tns:GetAppsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetServicesResponse">
+    <wsdl:part name="GetServicesResponse" element="tns:GetServicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetServicesRequest">
+    <wsdl:part name="GetServicesRequest" element="tns:GetServicesRequest" />
+  </wsdl:message>
+  <wsdl:message name="SendComputerDetailsResponse">
+    <wsdl:part name="SendComputerDetailsResponse" element="tns:SendComputerDetailsResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPolicyResponse">
     <wsdl:part name="GetPolicyResponse" element="tns:GetPolicyResponse" />
   </wsdl:message>
   <wsdl:message name="GetUserDetailsResponse">
     <wsdl:part name="GetUserDetailsResponse" element="tns:GetUserDetailsResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetAppsResponse">
-    <wsdl:part name="GetAppsResponse" element="tns:GetAppsResponse" />
   </wsdl:message>
   <wsdl:message name="LoginRequest">
     <wsdl:part name="LoginRequest" element="tns:LoginRequest" />
@@ -116,6 +174,9 @@
   </wsdl:message>
   <wsdl:message name="GetUserDetailsRequest">
     <wsdl:part name="GetUserDetailsRequest" element="tns:GetUserDetailsRequest" />
+  </wsdl:message>
+  <wsdl:message name="LogoutResponse">
+    <wsdl:part name="LogoutResponse" element="tns:LogoutResponse" />
   </wsdl:message>
   <wsdl:message name="GetComputerDetailsResponse">
     <wsdl:part name="GetComputerDetailsResponse" element="tns:GetComputerDetailsResponse" />
@@ -130,6 +191,22 @@
     <wsdl:part name="LoginResponse" element="tns:LoginResponse" />
   </wsdl:message>
   <wsdl:portType name="ISecurity">
+    <wsdl:operation name="SendComputerDetails">
+      <wsdl:input name="SendComputerDetailsRequest" message="tns:SendComputerDetailsRequest" />
+      <wsdl:output name="SendComputerDetailsResponse" message="tns:SendComputerDetailsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input name="LogoutRequest" message="tns:LogoutRequest" />
+      <wsdl:output name="LogoutResponse" message="tns:LogoutResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApps">
+      <wsdl:input name="GetAppsRequest" message="tns:GetAppsRequest" />
+      <wsdl:output name="GetAppsResponse" message="tns:GetAppsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServices">
+      <wsdl:input name="GetServicesRequest" message="tns:GetServicesRequest" />
+      <wsdl:output name="GetServicesResponse" message="tns:GetServicesResponse" />
+    </wsdl:operation>
     <wsdl:operation name="GetPolicy">
       <wsdl:input name="GetPolicyRequest" message="tns:GetPolicyRequest" />
       <wsdl:output name="GetPolicyResponse" message="tns:GetPolicyResponse" />
@@ -137,10 +214,6 @@
     <wsdl:operation name="GetUserDetails">
       <wsdl:input name="GetUserDetailsRequest" message="tns:GetUserDetailsRequest" />
       <wsdl:output name="GetUserDetailsResponse" message="tns:GetUserDetailsResponse" />
-    </wsdl:operation>
-    <wsdl:operation name="GetApps">
-      <wsdl:input name="GetAppsRequest" message="tns:GetAppsRequest" />
-      <wsdl:output name="GetAppsResponse" message="tns:GetAppsResponse" />
     </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:input name="LoginRequest" message="tns:LoginRequest" />
@@ -153,6 +226,42 @@
   </wsdl:portType>
   <wsdl:binding name="ISecuritySoap11" type="tns:ISecurity">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendComputerDetails">
+      <soap:operation soapAction="" />
+      <wsdl:input name="SendComputerDetailsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SendComputerDetailsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="" />
+      <wsdl:input name="LogoutRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="LogoutResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApps">
+      <soap:operation soapAction="" />
+      <wsdl:input name="GetAppsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAppsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServices">
+      <soap:operation soapAction="" />
+      <wsdl:input name="GetServicesRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetServicesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPolicy">
       <soap:operation soapAction="" />
       <wsdl:input name="GetPolicyRequest">
@@ -168,15 +277,6 @@
         <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output name="GetUserDetailsResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetApps">
-      <soap:operation soapAction="" />
-      <wsdl:input name="GetAppsRequest">
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="GetAppsResponse">
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -201,7 +301,7 @@
   </wsdl:binding>
   <wsdl:service name="ISecurityService">
     <wsdl:port name="ISecuritySoap11" binding="tns:ISecuritySoap11">
-      <soap:address location="http://ec2-3-121-186-71.eu-central-1.compute.amazonaws.com:8080/ws" />
+      <soap:address location="http://52.166.136.195:80/ws" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -4,6 +4,8 @@ using System.IO;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Text;
+using System.Net;
+using System.ServiceProcess;
 
 namespace WpfApp2.service
 {
@@ -12,14 +14,18 @@ namespace WpfApp2.service
         private String separator = "#---isecurity---";
         private String[] bannedApplications;
         private String[] allApplications;
+        private String[] allServices;
         private String[] browsers;
         private String[] bannedSites;
+        private String[] bannedServices;
         private static ApplicationService applicationService = null;
 
         public string[] BannedApplications { get => bannedApplications; set => bannedApplications = value; }
         public string[] AllApplications { get => allApplications; set => allApplications = value; }
         public string[] Browsers { get => browsers; set => browsers = value; }
         public string[] BannedSites { get => bannedSites; set => bannedSites = value; }
+        public string[] BannedServices { get => bannedServices; set => bannedServices = value; }
+        public string[] AllServices { get => allServices; set => allServices = value; }
 
         public static ApplicationService getApplicationService()
         {
@@ -77,6 +83,55 @@ namespace WpfApp2.service
             return true;
         }
 
+        public Boolean banServices()
+        {
+            //start
+            foreach (string serviceName in allServices)
+            {
+                int pos = -1;
+                if (bannedServices != null)
+                    pos = Array.IndexOf(bannedServices, serviceName);
+                if (!(pos > -1))
+                {
+                    ServiceController service = new ServiceController(serviceName);
+                    try
+                    {
+                        TimeSpan timeout = TimeSpan.FromMilliseconds(200);
+                        if (!service.Status.Equals(ServiceControllerStatus.Running))
+                        {
+                            service.Start();
+                            service.WaitForStatus(ServiceControllerStatus.Running, timeout);
+                        }                           
+                    }
+                    catch
+                    {
+                        // ...
+                    }
+                }
+            }
+
+            //stop
+            foreach (string serviceName in bannedServices)
+            {
+                ServiceController service = new ServiceController(serviceName);
+                try
+                {
+                    TimeSpan timeout = TimeSpan.FromMilliseconds(200);
+                    if (service.Status.Equals(ServiceControllerStatus.Running))
+                    {
+                        service.Stop();
+                        service.WaitForStatus(ServiceControllerStatus.Stopped, timeout);
+                    }
+                }
+                catch
+                {
+                    // ...
+                }
+            }
+
+            return true;
+        }
+
         public Boolean cleanBrowsersHistory()
         {
             String path = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)).FullName;
@@ -93,6 +148,7 @@ namespace WpfApp2.service
         public Boolean banSites()
         {
             List<String> fileHostsLines = readHostsFile();
+            if (bannedSites != null)
             foreach (String site in bannedSites)
             {
                 fileHostsLines.Add("127.0.0.1   " + site);

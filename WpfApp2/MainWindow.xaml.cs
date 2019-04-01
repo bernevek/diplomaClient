@@ -7,16 +7,20 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Threading;
 using WpfApp2.request;
+using WpfApp2.service;
 
 namespace WpfApp2
 {
     public partial class MainWindow : Window
     {
         // Fields
-        private static String _session;
+        private static String _session = null;
+        private static long _id;
         private Requests requests = Requests.getRequests();
+        private ApplicationService applicationService = ApplicationService.getApplicationService();
 
         public static string Session { get => _session; set => _session = value; }
+        public static long id { get => _id; set => _id = value; }
 
         private const uint GENERIC_ALL = 0x1ff;
 
@@ -138,8 +142,15 @@ namespace WpfApp2
             //Console.WriteLine(response.UserDetails.firstName);
             //Console.WriteLine(response.UserDetails.lastName);
 
-            Thread myThread = new Thread(new ThreadStart(newDesktop));
-            myThread.Start(); // запускаем поток
+
+            //requests.logout(MainWindow.Session);
+            MainWindow.Session = null;
+            MainWindow.id = requests.sendComputerDetails();
+            if (MainWindow.id != 0)
+            {
+                Thread myThread = new Thread(new ThreadStart(newDesktop));
+                myThread.Start(); // запускаем поток
+            }
         }
 
         private void newDesktop()
@@ -163,7 +174,6 @@ namespace WpfApp2
 
             //MessageBox.Show("bla bla");
             CustomMsgBox.Show(hDesktop, hObject, "bla bla", "MSG", "Close", "Send");
-            Console.WriteLine(_session);
 
 
             //            EnumWindows(delegate (IntPtr hWnd, IntPtr lParam) {
@@ -180,7 +190,61 @@ namespace WpfApp2
             }
             else
             {
-                requests.getAndApplyPolicy(MainWindow.Session);
+                Thread myThread = new Thread(new ThreadStart(periodicMessage));
+                myThread.Start();
+                Thread myThread2 = new Thread(new ThreadStart(trackUserActivity));
+                myThread2.Start();
+            }
+        }
+
+        private void periodicMessage()
+        {
+            int count = 0;
+            requests.getAndApplyPolicy(MainWindow.Session);
+            while (true)
+            {
+                if (MainWindow.Session != null)
+                {
+                    if (count > 300)
+                    {
+                        requests.getAndApplyPolicy(MainWindow.Session);
+                        count = 0;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+                count++;
+                Thread.Sleep(1000);
+            }
+        }
+
+        private void trackUserActivity()
+        {
+            int count = 0;
+            uint userActivity = GetLastUserInput.GetLastInputTime();
+            while (true)
+            {
+                if (MainWindow.Session != null)
+                {
+                    if (userActivity != GetLastUserInput.GetLastInputTime())
+                    {
+                        userActivity = GetLastUserInput.GetLastInputTime();
+                        count = 0;
+                    }
+                    else
+                    {
+                        if (count > 60)
+                            Button_Click(null, null);
+                    }
+                }
+                else
+                {
+                    break;
+                }
+                count++;
+                Thread.Sleep(1000);
             }
         }
 
@@ -217,5 +281,9 @@ namespace WpfApp2
             return (hObject != IntPtr.Zero);
         }
 
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            MainWindow.Session = null;
+        }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="dt6h4C/DO0GTAF4jxHkBGm7yaIo=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="5m+pEFDz/kqV82it3wSOX3lkvnw=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="ISecuritySoap11">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="ISecuritySoap11" contract="isecurity.ISecurity" bindingType="basicHttpBinding" address="http://ec2-3-121-186-71.eu-central-1.compute.amazonaws.com:8080/ws" bindingConfiguration="ISecuritySoap11">
+    <endpoint name="ISecuritySoap11" contract="isecurity.ISecurity" bindingType="basicHttpBinding" address="http://52.166.136.195/ws" bindingConfiguration="ISecuritySoap11">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://ec2-3-121-186-71.eu-central-1.compute.amazonaws.com:8080/ws</serializedValue>
+          <serializedValue>http://52.166.136.195:80/ws</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

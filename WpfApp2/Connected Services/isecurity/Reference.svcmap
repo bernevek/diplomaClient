@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="885557d7-fb21-4dec-9c3a-6b1cc1d45fcd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8bca9739-91d0-43d8-8dbd-c4ae55a96c22" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -18,10 +18,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://ec2-3-121-186-71.eu-central-1.compute.amazonaws.com:8080/ws/isecurity.wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://52.166.136.195/ws/isecurity.wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="isecurity.wsdl" MetadataType="Wsdl" ID="6e7429b7-1c99-47ab-915a-e516ac75a001" SourceId="1" SourceUrl="http://ec2-3-121-186-71.eu-central-1.compute.amazonaws.com:8080/ws/isecurity.wsdl" />
+    <MetadataFile FileName="isecurity.wsdl" MetadataType="Wsdl" ID="3fd0282d-9c88-458f-9d8b-6f9fbe1c6a03" SourceId="1" SourceUrl="http://52.166.136.195/ws/isecurity.wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

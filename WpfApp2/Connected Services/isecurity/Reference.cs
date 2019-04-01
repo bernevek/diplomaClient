@@ -15,6 +15,26 @@ namespace WpfApp2.isecurity {
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://localhost:8080/isecurity", ConfigurationName="isecurity.ISecurity")]
     public interface ISecurity {
         
+        // CODEGEN: Контракт генерации сообщений с операцией SendComputerDetails не является ни RPC, ни упакованным документом.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        WpfApp2.isecurity.SendComputerDetailsResponse1 SendComputerDetails(WpfApp2.isecurity.SendComputerDetailsRequest1 request);
+        
+        // CODEGEN: Контракт генерации сообщений с операцией Logout не является ни RPC, ни упакованным документом.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        WpfApp2.isecurity.LogoutResponse1 Logout(WpfApp2.isecurity.LogoutRequest1 request);
+        
+        // CODEGEN: Контракт генерации сообщений с операцией GetApps не является ни RPC, ни упакованным документом.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        WpfApp2.isecurity.GetAppsResponse GetApps(WpfApp2.isecurity.GetAppsRequest1 request);
+        
+        // CODEGEN: Контракт генерации сообщений с операцией GetServices не является ни RPC, ни упакованным документом.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        WpfApp2.isecurity.GetServicesResponse GetServices(WpfApp2.isecurity.GetServicesRequest1 request);
+        
         // CODEGEN: Контракт генерации сообщений с операцией GetPolicy не является ни RPC, ни упакованным документом.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -24,11 +44,6 @@ namespace WpfApp2.isecurity {
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         WpfApp2.isecurity.GetUserDetailsResponse1 GetUserDetails(WpfApp2.isecurity.GetUserDetailsRequest1 request);
-        
-        // CODEGEN: Контракт генерации сообщений с операцией GetApps не является ни RPC, ни упакованным документом.
-        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        WpfApp2.isecurity.GetAppsResponse GetApps(WpfApp2.isecurity.GetAppsRequest1 request);
         
         // CODEGEN: Контракт генерации сообщений с операцией Login не является ни RPC, ни упакованным документом.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
@@ -47,19 +62,19 @@ namespace WpfApp2.isecurity {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
-    public partial class GetPolicyRequest : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class SendComputerDetailsRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private string sessionField;
+        private ComputerDetails computerDetailsField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string session {
+        public ComputerDetails ComputerDetails {
             get {
-                return this.sessionField;
+                return this.computerDetailsField;
             }
             set {
-                this.sessionField = value;
-                this.RaisePropertyChanged("session");
+                this.computerDetailsField = value;
+                this.RaisePropertyChanged("ComputerDetails");
             }
         }
         
@@ -81,24 +96,66 @@ namespace WpfApp2.isecurity {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://localhost:8080/isecurity")]
     public partial class ComputerDetails : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private int idField;
+        private long serverIdField;
+        
+        private long localIdField;
+        
+        private string computerNameField;
+        
+        private string localUserNameField;
         
         private string ipField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public int id {
+        public long serverId {
             get {
-                return this.idField;
+                return this.serverIdField;
             }
             set {
-                this.idField = value;
-                this.RaisePropertyChanged("id");
+                this.serverIdField = value;
+                this.RaisePropertyChanged("serverId");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public long localId {
+            get {
+                return this.localIdField;
+            }
+            set {
+                this.localIdField = value;
+                this.RaisePropertyChanged("localId");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string computerName {
+            get {
+                return this.computerNameField;
+            }
+            set {
+                this.computerNameField = value;
+                this.RaisePropertyChanged("computerName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string localUserName {
+            get {
+                return this.localUserNameField;
+            }
+            set {
+                this.localUserNameField = value;
+                this.RaisePropertyChanged("localUserName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string ip {
             get {
                 return this.ipField;
@@ -187,42 +244,14 @@ namespace WpfApp2.isecurity {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://localhost:8080/isecurity")]
     public partial class policy : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private long idField;
-        
-        private string nameField;
-        
         private string[] bannedAppsField;
         
         private string[] bannedSitesField;
         
-        private string[] loginMethodsField;
+        private string[] bannedServicesField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public long id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-                this.RaisePropertyChanged("id");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-                this.RaisePropertyChanged("name");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("bannedApps", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute("bannedApps", Order=0)]
         public string[] bannedApps {
             get {
                 return this.bannedAppsField;
@@ -234,7 +263,7 @@ namespace WpfApp2.isecurity {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("bannedSites", Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute("bannedSites", Order=1)]
         public string[] bannedSites {
             get {
                 return this.bannedSitesField;
@@ -246,14 +275,344 @@ namespace WpfApp2.isecurity {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("loginMethods", Order=4)]
-        public string[] loginMethods {
+        [System.Xml.Serialization.XmlElementAttribute("bannedServices", Order=2)]
+        public string[] bannedServices {
             get {
-                return this.loginMethodsField;
+                return this.bannedServicesField;
             }
             set {
-                this.loginMethodsField = value;
-                this.RaisePropertyChanged("loginMethods");
+                this.bannedServicesField = value;
+                this.RaisePropertyChanged("bannedServices");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3062.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
+    public partial class SendComputerDetailsResponse : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private ComputerDetails computerDetailsField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public ComputerDetails ComputerDetails {
+            get {
+                return this.computerDetailsField;
+            }
+            set {
+                this.computerDetailsField = value;
+                this.RaisePropertyChanged("ComputerDetails");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SendComputerDetailsRequest1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/isecurity", Order=0)]
+        public WpfApp2.isecurity.SendComputerDetailsRequest SendComputerDetailsRequest;
+        
+        public SendComputerDetailsRequest1() {
+        }
+        
+        public SendComputerDetailsRequest1(WpfApp2.isecurity.SendComputerDetailsRequest SendComputerDetailsRequest) {
+            this.SendComputerDetailsRequest = SendComputerDetailsRequest;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SendComputerDetailsResponse1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/isecurity", Order=0)]
+        public WpfApp2.isecurity.SendComputerDetailsResponse SendComputerDetailsResponse;
+        
+        public SendComputerDetailsResponse1() {
+        }
+        
+        public SendComputerDetailsResponse1(WpfApp2.isecurity.SendComputerDetailsResponse SendComputerDetailsResponse) {
+            this.SendComputerDetailsResponse = SendComputerDetailsResponse;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3062.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
+    public partial class LogoutRequest : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string sessionField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string session {
+            get {
+                return this.sessionField;
+            }
+            set {
+                this.sessionField = value;
+                this.RaisePropertyChanged("session");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3062.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
+    public partial class LogoutResponse : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string statusField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+                this.RaisePropertyChanged("status");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class LogoutRequest1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/isecurity", Order=0)]
+        public WpfApp2.isecurity.LogoutRequest LogoutRequest;
+        
+        public LogoutRequest1() {
+        }
+        
+        public LogoutRequest1(WpfApp2.isecurity.LogoutRequest LogoutRequest) {
+            this.LogoutRequest = LogoutRequest;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class LogoutResponse1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/isecurity", Order=0)]
+        public WpfApp2.isecurity.LogoutResponse LogoutResponse;
+        
+        public LogoutResponse1() {
+        }
+        
+        public LogoutResponse1(WpfApp2.isecurity.LogoutResponse LogoutResponse) {
+            this.LogoutResponse = LogoutResponse;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3062.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
+    public partial class GetAppsRequest : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string sessionField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string session {
+            get {
+                return this.sessionField;
+            }
+            set {
+                this.sessionField = value;
+                this.RaisePropertyChanged("session");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAppsRequest1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/isecurity", Order=0)]
+        public WpfApp2.isecurity.GetAppsRequest GetAppsRequest;
+        
+        public GetAppsRequest1() {
+        }
+        
+        public GetAppsRequest1(WpfApp2.isecurity.GetAppsRequest GetAppsRequest) {
+            this.GetAppsRequest = GetAppsRequest;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetAppsResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAppsResponse", Namespace="http://localhost:8080/isecurity", Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("apps", IsNullable=false)]
+        public string[] GetAppsResponse1;
+        
+        public GetAppsResponse() {
+        }
+        
+        public GetAppsResponse(string[] GetAppsResponse1) {
+            this.GetAppsResponse1 = GetAppsResponse1;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3062.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
+    public partial class GetServicesRequest : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string sessionField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string session {
+            get {
+                return this.sessionField;
+            }
+            set {
+                this.sessionField = value;
+                this.RaisePropertyChanged("session");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetServicesRequest1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/isecurity", Order=0)]
+        public WpfApp2.isecurity.GetServicesRequest GetServicesRequest;
+        
+        public GetServicesRequest1() {
+        }
+        
+        public GetServicesRequest1(WpfApp2.isecurity.GetServicesRequest GetServicesRequest) {
+            this.GetServicesRequest = GetServicesRequest;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetServicesResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetServicesResponse", Namespace="http://localhost:8080/isecurity", Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("services", IsNullable=false)]
+        public string[] GetServicesResponse1;
+        
+        public GetServicesResponse() {
+        }
+        
+        public GetServicesResponse(string[] GetServicesResponse1) {
+            this.GetServicesResponse1 = GetServicesResponse1;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3062.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
+    public partial class GetPolicyRequest : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string sessionField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string session {
+            get {
+                return this.sessionField;
+            }
+            set {
+                this.sessionField = value;
+                this.RaisePropertyChanged("session");
             }
         }
         
@@ -428,73 +787,6 @@ namespace WpfApp2.isecurity {
         
         public GetUserDetailsResponse1(WpfApp2.isecurity.GetUserDetailsResponse GetUserDetailsResponse) {
             this.GetUserDetailsResponse = GetUserDetailsResponse;
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3062.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://localhost:8080/isecurity")]
-    public partial class GetAppsRequest : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string sessionField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string session {
-            get {
-                return this.sessionField;
-            }
-            set {
-                this.sessionField = value;
-                this.RaisePropertyChanged("session");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetAppsRequest1 {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://localhost:8080/isecurity", Order=0)]
-        public WpfApp2.isecurity.GetAppsRequest GetAppsRequest;
-        
-        public GetAppsRequest1() {
-        }
-        
-        public GetAppsRequest1(WpfApp2.isecurity.GetAppsRequest GetAppsRequest) {
-            this.GetAppsRequest = GetAppsRequest;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetAppsResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetAppsResponse", Namespace="http://localhost:8080/isecurity", Order=0)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("apps", IsNullable=false)]
-        public string[] GetAppsResponse1;
-        
-        public GetAppsResponse() {
-        }
-        
-        public GetAppsResponse(string[] GetAppsResponse1) {
-            this.GetAppsResponse1 = GetAppsResponse1;
         }
     }
     
@@ -764,6 +1056,54 @@ namespace WpfApp2.isecurity {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WpfApp2.isecurity.SendComputerDetailsResponse1 WpfApp2.isecurity.ISecurity.SendComputerDetails(WpfApp2.isecurity.SendComputerDetailsRequest1 request) {
+            return base.Channel.SendComputerDetails(request);
+        }
+        
+        public WpfApp2.isecurity.SendComputerDetailsResponse SendComputerDetails(WpfApp2.isecurity.SendComputerDetailsRequest SendComputerDetailsRequest) {
+            WpfApp2.isecurity.SendComputerDetailsRequest1 inValue = new WpfApp2.isecurity.SendComputerDetailsRequest1();
+            inValue.SendComputerDetailsRequest = SendComputerDetailsRequest;
+            WpfApp2.isecurity.SendComputerDetailsResponse1 retVal = ((WpfApp2.isecurity.ISecurity)(this)).SendComputerDetails(inValue);
+            return retVal.SendComputerDetailsResponse;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WpfApp2.isecurity.LogoutResponse1 WpfApp2.isecurity.ISecurity.Logout(WpfApp2.isecurity.LogoutRequest1 request) {
+            return base.Channel.Logout(request);
+        }
+        
+        public WpfApp2.isecurity.LogoutResponse Logout(WpfApp2.isecurity.LogoutRequest LogoutRequest) {
+            WpfApp2.isecurity.LogoutRequest1 inValue = new WpfApp2.isecurity.LogoutRequest1();
+            inValue.LogoutRequest = LogoutRequest;
+            WpfApp2.isecurity.LogoutResponse1 retVal = ((WpfApp2.isecurity.ISecurity)(this)).Logout(inValue);
+            return retVal.LogoutResponse;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WpfApp2.isecurity.GetAppsResponse WpfApp2.isecurity.ISecurity.GetApps(WpfApp2.isecurity.GetAppsRequest1 request) {
+            return base.Channel.GetApps(request);
+        }
+        
+        public string[] GetApps(WpfApp2.isecurity.GetAppsRequest GetAppsRequest) {
+            WpfApp2.isecurity.GetAppsRequest1 inValue = new WpfApp2.isecurity.GetAppsRequest1();
+            inValue.GetAppsRequest = GetAppsRequest;
+            WpfApp2.isecurity.GetAppsResponse retVal = ((WpfApp2.isecurity.ISecurity)(this)).GetApps(inValue);
+            return retVal.GetAppsResponse1;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WpfApp2.isecurity.GetServicesResponse WpfApp2.isecurity.ISecurity.GetServices(WpfApp2.isecurity.GetServicesRequest1 request) {
+            return base.Channel.GetServices(request);
+        }
+        
+        public string[] GetServices(WpfApp2.isecurity.GetServicesRequest GetServicesRequest) {
+            WpfApp2.isecurity.GetServicesRequest1 inValue = new WpfApp2.isecurity.GetServicesRequest1();
+            inValue.GetServicesRequest = GetServicesRequest;
+            WpfApp2.isecurity.GetServicesResponse retVal = ((WpfApp2.isecurity.ISecurity)(this)).GetServices(inValue);
+            return retVal.GetServicesResponse1;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         WpfApp2.isecurity.GetPolicyResponse1 WpfApp2.isecurity.ISecurity.GetPolicy(WpfApp2.isecurity.GetPolicyRequest1 request) {
             return base.Channel.GetPolicy(request);
         }
@@ -785,18 +1125,6 @@ namespace WpfApp2.isecurity {
             inValue.GetUserDetailsRequest = GetUserDetailsRequest;
             WpfApp2.isecurity.GetUserDetailsResponse1 retVal = ((WpfApp2.isecurity.ISecurity)(this)).GetUserDetails(inValue);
             return retVal.GetUserDetailsResponse;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        WpfApp2.isecurity.GetAppsResponse WpfApp2.isecurity.ISecurity.GetApps(WpfApp2.isecurity.GetAppsRequest1 request) {
-            return base.Channel.GetApps(request);
-        }
-        
-        public string[] GetApps(WpfApp2.isecurity.GetAppsRequest GetAppsRequest) {
-            WpfApp2.isecurity.GetAppsRequest1 inValue = new WpfApp2.isecurity.GetAppsRequest1();
-            inValue.GetAppsRequest = GetAppsRequest;
-            WpfApp2.isecurity.GetAppsResponse retVal = ((WpfApp2.isecurity.ISecurity)(this)).GetApps(inValue);
-            return retVal.GetAppsResponse1;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
