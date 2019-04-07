@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Icon="Lock.ico"
+        Title="ISecurity" Height="160.82" Width="270.522" Icon="Lock.ico"
         Closing="MainWindow_Closing">
-    <Grid x:Name="grid1">
-        <TextBox x:Name="textBox1" Width="150" Height="30" VerticalAlignment="Top" Margin="20" />
-        <Button x:Name="button1"  Width="100" Height="30" Content="Кнопка" Click="Button_Click" />
+    <Grid x:Name="grid1" Margin="0,0,195.896,96.642">
+        <Button x:Name="button1" Content="Lock" Click="Button_Click" Margin="7.381,2.843,-186.62,-95.218" FontSize="24" />
     </Grid>
 </Window>

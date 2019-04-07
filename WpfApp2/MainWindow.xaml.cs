@@ -142,8 +142,10 @@ namespace WpfApp2
             //Console.WriteLine(response.UserDetails.firstName);
             //Console.WriteLine(response.UserDetails.lastName);
 
-
-            //requests.logout(MainWindow.Session);
+            if (MainWindow.Session != null)
+            {
+                requests.logout(MainWindow.Session);
+            }
             MainWindow.Session = null;
             MainWindow.id = requests.sendComputerDetails();
             if (MainWindow.id != 0)
@@ -173,7 +175,7 @@ namespace WpfApp2
             }
 
             //MessageBox.Show("bla bla");
-            CustomMsgBox.Show(hDesktop, hObject, "bla bla", "MSG", "Close", "Send");
+            CustomMsgBox.Show(hDesktop, hObject);
 
 
             //            EnumWindows(delegate (IntPtr hWnd, IntPtr lParam) {

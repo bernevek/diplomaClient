@@ -23,13 +23,12 @@ namespace WpfApp2
         static IntPtr mainDesktop;
         static IntPtr securityDesktop;
         private Boolean close = false;
-        public static DialogResult Show(IntPtr mainDesktop, IntPtr securityDesktop, string text, string caption, string btnOk, string btnCancel)
+        public static DialogResult Show(IntPtr mainDesktop, IntPtr securityDesktop)
         {
             CustomMsgBox.mainDesktop = mainDesktop;
             CustomMsgBox.securityDesktop = securityDesktop;
             msgBox = new CustomMsgBox();
-            msgBox.label1.Text = text;
-            msgBox.button1.Text = btnOk;
+            msgBox.button1.Text = "Login";
             msgBox.ShowDialog();
             return result;
         }
@@ -49,6 +48,7 @@ namespace WpfApp2
             }
             catch (Exception ex)
             {
+                this.label1.Text = "Wrong login or password";
                 return;
             }
             close = true;
