@@ -37,7 +37,7 @@ namespace WpfApp2
             SecurityClient client = new SecurityClient("ISecuritySoap11");
             
             LoginRequest loginRequest = new LoginRequest();
-            loginRequest.computerId = 1;
+            loginRequest.computerId = MainWindow.id;
             loginRequest.login = this.textBox1.Text;
             loginRequest.password = this.textBox2.Text;
 

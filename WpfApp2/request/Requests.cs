@@ -67,7 +67,7 @@ namespace WpfApp2.request
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\isecurity");
             if (key.ValueCount != 0)
             {
-                computerDetails.serverId = long.Parse(key.GetValue("serverId").ToString());
+                //computerDetails.serverId = long.Parse(key.GetValue("serverId").ToString());
                 computerDetails.localId = long.Parse(key.GetValue("localId").ToString());
                 key.Close();
             }
@@ -85,12 +85,10 @@ namespace WpfApp2.request
             try
             {
                 response = client.SendComputerDetails(request);
-                if (computerDetails.serverId == 0)
-                {
-                    key.SetValue("serverId", response.ComputerDetails.serverId);
-                    key.SetValue("localId", response.ComputerDetails.localId);
-                    key.Close();
-                }
+                key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\isecurity");
+                key.SetValue("serverId", response.ComputerDetails.serverId);
+                key.SetValue("localId", response.ComputerDetails.localId);
+                key.Close();
             }
             catch (Exception ex)
             {
